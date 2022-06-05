@@ -11,6 +11,8 @@ export class HomePage implements OnInit {
   status = false;
   messages: Array<string> = [];
 
+  url = '/assets/video.mp4';
+
   constructor(private socketService: SocketService) {}
 
   ngOnInit(): void {
@@ -25,7 +27,7 @@ export class HomePage implements OnInit {
 
   protected listen(): void {
     this.socketService
-        .listen()
+        .listen('message')
         .subscribe(m => {
           this.messages.push(m);
         });

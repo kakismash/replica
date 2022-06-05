@@ -29,6 +29,7 @@
     "@types/socket.io": "^3.0.2",
     "@types/socket.io-client": "^3.0.0",
     "rxjs": "~6.6.0",
+    "safe-json-parse": "^4.0.0",
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.1",
     "tslib": "^2.2.0",
@@ -67,7 +68,8 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.4.4"
+    "typescript": "~4.4.4",
+    "video.js": "^7.19.2"
   },
   "description": "An Ionic project"
 }

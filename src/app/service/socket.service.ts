@@ -17,9 +17,9 @@ export class SocketService {
     this.socketClient = SocketIOClient.io(environment.wsUrl);
   }
 
-  listen(): Observable<any> {
+  listen(eventName): Observable<any> {
     return new Observable(o => {
-      this.socketClient.on('message', (data) => {
+      this.socketClient.on(eventName, (data) => {
         console.log('Received message from Websocket Server');
         o.next(data);
       });
