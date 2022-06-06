@@ -10,11 +10,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SocketService {
+  private socketId: string;
   private socketClient: SocketIOClient.Socket;
   constructor() {}
 
   open(): void {
     this.socketClient = SocketIOClient.io(environment.wsUrl);
+    this.setSocketId(this.socketClient.id);
   }
 
   listen(eventName): Observable<any> {
@@ -30,8 +32,20 @@ export class SocketService {
     this.socketClient.emit('message', message);
   }
 
-  sendTimePlayer(time: number): void {
-    this.socketClient.emit('timePlayer', time);
+  sendTimePlayer(time: number, socketId): void {
+    this.socketClient.emit('timePlayer', {time, socketId});
+  }
+
+  sendRequestTimeSync(): void {
+    this.socketClient.emit('requestedTimeVideoSync');
+  }
+
+  getSocketid(): string {
+    return this.socketId;
+  }
+
+  private setSocketId(socketId: string): void {
+    this.socketId = socketId;
   }
 
 }

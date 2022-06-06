@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { TimePlayerMessage } from '../model/timePlayerMessage';
 import { SocketService as SocketService } from '../service/socket.service';
 import { TimedPlayerComponent } from '../timed-player/timed-player.component';
 
@@ -33,9 +34,19 @@ export class HomePage implements OnInit {
     this.socketService
         .listen('timePlayer')
         .subscribe(tP => {
-          console.log('timePlayer: ', tP);
-          this.sendTimePlayer();
+          const tPM: TimePlayerMessage = tP;
+          if (tPM.type === 'request') {
+            this.sendTimePlayer(tPM.requester);
+          } else if (tPM.type === 'broadcast') {
+            if (tPM.requester === this.socketService.getSocketid()) {
+              this.timedPlayer.setTime(tPM.message as number);
+            }
+          } else {
+            console.log(tP);
+          }
         });
+
+    this.syncTimeOnStart();
   }
 
   protected listenMessage(): void {
@@ -50,16 +61,16 @@ export class HomePage implements OnInit {
     this.socketService.sendMessage(message);
   }
 
-  protected sendTimePlayer(): void {
-    this.socketService.sendTimePlayer(this.getTimePlayer());
+  private syncTimeOnStart(): void {
+    this.socketService.sendRequestTimeSync();
+  }
+
+  private sendTimePlayer(socketId: string): void {
+    this.socketService.sendTimePlayer(this.getTimePlayer(), socketId);
   }
 
   private getTimePlayer(): number {
     return this.timedPlayer.getTime();
-  }
-
-  private syncPlayer(time: number): void {
-    this.timedPlayer.setTime(time);
   }
 
 }
