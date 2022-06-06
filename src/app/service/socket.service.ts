@@ -10,13 +10,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SocketService {
-  private socketId: string;
   private socketClient: SocketIOClient.Socket;
   constructor() {}
 
   open(): void {
     this.socketClient = SocketIOClient.io(environment.wsUrl);
-    this.setSocketId(this.socketClient.id);
   }
 
   listen(eventName): Observable<any> {
@@ -41,11 +39,7 @@ export class SocketService {
   }
 
   getSocketid(): string {
-    return this.socketId;
-  }
-
-  private setSocketId(socketId: string): void {
-    this.socketId = socketId;
+    return this.socketClient.id;
   }
 
 }

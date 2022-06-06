@@ -58,7 +58,7 @@ export class HomePage implements OnInit {
   }
 
   protected sendMessage(message: string): void {
-    this.socketService.sendMessage(message);
+    this.socketService.sendMessage(message + .500);
   }
 
   private syncTimeOnStart(): void {
