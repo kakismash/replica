@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import videojs from 'video.js';
+//import currentTime from 'video.js';
 
 
 @Component({
@@ -41,6 +42,10 @@ export class TimedPlayerComponent implements OnInit, OnDestroy {
                     onPlayerReady => {
                       console.log('onPlayerReady', this);
                     });
+  }
+
+  getTiume() {
+    console.log(this.player.currentTime());
   }
 
 }
