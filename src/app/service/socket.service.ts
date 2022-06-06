@@ -30,4 +30,8 @@ export class SocketService {
     this.socketClient.emit('message', message);
   }
 
+  sendTimePlayer(time: number): void {
+    this.socketClient.emit('timePlayer', time);
+  }
+
 }

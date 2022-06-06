@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SocketService as SocketService } from '../service/socket.service';
+import { TimedPlayerComponent } from '../timed-player/timed-player.component';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,8 @@ import { SocketService as SocketService } from '../service/socket.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+  @ViewChild(TimedPlayerComponent) timedPlayer: TimedPlayerComponent;
 
   status = false;
   messages: Array<string> = [];
@@ -22,10 +25,18 @@ export class HomePage implements OnInit {
   protected openConnection(): void {
     this.socketService.open();
     this.status = true;
-    this.listen();
+    this.listenMessage();
   }
 
-  protected listen(): void {
+  protected listenTime(): void {
+    this.socketService
+        .listen('timePlayer')
+        .subscribe(tP => {
+          console.log('timePlayer: ', tP);
+        });
+  }
+
+  protected listenMessage(): void {
     this.socketService
         .listen('message')
         .subscribe(m => {
@@ -35,6 +46,18 @@ export class HomePage implements OnInit {
 
   protected sendMessage(message: string): void {
     this.socketService.sendMessage(message);
+  }
+
+  protected sendTimePlayer(): void {
+    this.socketService.sendTimePlayer(this.getTimePlayer());
+  }
+
+  private getTimePlayer(): number {
+    return this.timedPlayer.getTime();
+  }
+
+  private syncPlayer(time: number): void {
+    this.timedPlayer.setTime(time);
   }
 
 }

@@ -36,6 +36,14 @@ export class TimedPlayerComponent implements OnInit, OnDestroy {
     }
   }
 
+  public setTime(time: number): void {
+    this.player.currentTime(time);
+  }
+
+  public getTime(): number {
+    return this.player.currentTime();
+  }
+
   protected initPlayer(): void {
     return videojs( this.target.nativeElement,
                     this.options,
@@ -43,13 +51,4 @@ export class TimedPlayerComponent implements OnInit, OnDestroy {
                       console.log('onPlayerReady', this);
                     });
   }
-
-  getTime() {
-    console.log(this.player.currentTime());
-  }
-
-  setTime() {
-    this.player.currentTime(20)
-  }
-
 }
