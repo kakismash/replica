@@ -20,7 +20,6 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.openConnection();
-    this.sendTimePlayer();
   }
 
   protected openConnection(): void {
@@ -35,6 +34,7 @@ export class HomePage implements OnInit {
         .listen('timePlayer')
         .subscribe(tP => {
           console.log('timePlayer: ', tP);
+          this.sendTimePlayer();
         });
   }
 
