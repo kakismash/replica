@@ -44,8 +44,12 @@ export class TimedPlayerComponent implements OnInit, OnDestroy {
                     });
   }
 
-  getTiume() {
+  getTime() {
     console.log(this.player.currentTime());
+  }
+
+  setTime() {
+    this.player.currentTime(20)
   }
 
 }
