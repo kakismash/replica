@@ -20,12 +20,14 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.openConnection();
+    this.sendTimePlayer();
   }
 
   protected openConnection(): void {
     this.socketService.open();
     this.status = true;
     this.listenMessage();
+    this.listenTime();
   }
 
   protected listenTime(): void {
