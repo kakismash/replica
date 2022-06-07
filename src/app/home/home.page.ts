@@ -40,10 +40,14 @@ export class HomePage implements OnInit {
           } else if (tPM.type === 'broadcast') {
             if (tPM.requester === this.socketService.getSocketid()) {
 
-              const time = tPM.message as number;
+              let time = tPM.message as number;
+              time = time + .300;
               let f = Math.floor(time) + 1;
               f = f - (time);
 
+              console.log('time', time);
+              console.log('f: ', f);
+              f = (f * 100);
               setTimeout(() => {
                 this.timedPlayer.setTime(time);
               }, f);
