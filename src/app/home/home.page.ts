@@ -36,7 +36,10 @@ export class HomePage implements OnInit {
         .subscribe(tP => {
           const tPM: TimePlayerMessage = tP;
           if (tPM.type === 'request') {
-            this.sendTimePlayer(tPM.requester);
+            setTimeout(() => {
+              this.sendTimePlayer(tPM.requester);
+            }, 50)
+            
           } else if (tPM.type === 'broadcast') {
             if (tPM.requester === this.socketService.getSocketid()) {
               this.timedPlayer.setTime(tPM.message as number);
