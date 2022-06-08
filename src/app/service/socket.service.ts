@@ -42,4 +42,8 @@ export class SocketService {
     return this.socketClient.id;
   }
 
+  sendTime(): void {
+    this.socketClient.emit('time', 200)
+  }
+
 }

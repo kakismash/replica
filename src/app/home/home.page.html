@@ -35,6 +35,7 @@
         <ion-card>
             <ion-input [(ngModel)]="message"></ion-input>
             <ion-button (click)="sendMessage(message)" color="success">Send</ion-button>
+            <ion-button (click)="sendTime()" color="success">Send TIME</ion-button>
         </ion-card>
         <ion-card>
             <app-timed-player [options]="{autoplay: true, controls: true, sources: [{ src: url, type: 'video/mp4' }]}"></app-timed-player>

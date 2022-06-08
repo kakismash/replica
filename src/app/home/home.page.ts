@@ -84,4 +84,8 @@ export class HomePage implements OnInit {
     return this.timedPlayer.getTime();
   }
 
+  protected sendTime(): void {
+    this.socketService.sendTime();
+  }
+
 }
